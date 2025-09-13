@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <title>Inventory Operations</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            
+        input[type="text"],
+        button[type="button"],
+        input[type="submit"],
+        input[type="date"],
+        textarea {
+            width: 270px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]
+        {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        button[type="button"]:hover{
+            background-color: #4CAF50;
+        }
+        </style>
+        <script>
+            function showAddStock() //AddStock input fields hiding
+            {
+                var AddStockFields = document.getElementById("AddStockFields");
+                var UpdateButton = document.getElementById("UpdateButton");
+                var DeleteButton = document.getElementById("DeleteButton");
+
+                if (AddStockFields.style.display === "none") 
+                {
+                    AddStockFields.style.display = "block";
+                    UpdateButton.style.display = "none";
+                    DeleteButton.style.display = "none";
+                } 
+                else 
+                {
+                    AddStockFields.style.display = "none";
+                    UpdateButton.style.display = "inline-block";
+                    DeleteButton.style.display = "inline-block";
+                }
+            }
+
+            function showUpdateStock() //Update Stock input fields hiding
+            {
+                var UpdateStockFields = document.getElementById("UpdateStockFields");
+                var AddButton = document.getElementById("AddButton");
+                var DeleteButton = document.getElementById("DeleteButton");
+
+                if (UpdateStockFields.style.display === "none") 
+                {
+                    UpdateStockFields.style.display = "block";
+                    AddButton.style.display = "none";
+                    DeleteButton.style.display = "none";
+                } 
+                else 
+                {
+                    UpdateStockFields.style.display = "none";
+                    AddButton.style.display = "inline-block";
+                    DeleteButton.style.display = "inline-block";
+                }
+            }
+
+            function showDeleteStock() //Delete stock input fields hiding
+            {
+                var DeleteStockFields = document.getElementById("DeleteStockFields");
+                var AddButton = document.getElementById("AddButton");
+                var UpdateButton = document.getElementById("UpdateButton");
+
+                if (DeleteStockFields.style.display === "none") 
+                {
+                    DeleteStockFields.style.display = "block";
+                    AddButton.style.display = "none";
+                    UpdateButton.style.display = "none";
+                } 
+                else 
+                {
+                    DeleteStockFields.style.display = "none";
+                    AddButton.style.display = "inline-block";
+                    UpdateButton.style.display = "inline-block";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <form action="inventorymgmt.jsp?action=add" method="post">
+            <button type="button" id="AddButton" onclick="showAddStock()">Add Stock</button>
+            <div id="AddStockFields" style="display: none;">
+                <input type="text" name="brand_name" placeholder="Enter the brand name" required>    
+                <input type="text" name="product_name" placeholder="Enter the product name" required>
+                <textarea name="product_description" placeholder="Enter the product description"></textarea>
+                <input type="text" name="product_category" placeholder="Enter the product category" required>
+                <input type="text" name="unit_price" placeholder="Enter the unit price(Rs)" required>
+                <input type="text" name="quantity" placeholder="Enter the quantity" required>
+                <input type="text" name="unit" placeholder="Enter the unit" required>
+                Manufacturing Date<br><input type="date" name="manufacturing_date" ><br>
+                Expiry Date<br><input type="date" name="expiry_date" >
+                <input type="submit" name="submit">
+            </div>
+        </form>
+         
+        <form action="inventorymgmt.jsp?action=update" method="post">
+            <button type="button" id="UpdateButton" onclick="showUpdateStock()">Update Stock</button>
+            <div id="UpdateStockFields" style="display: none;">
+                <input type="text" name="inventory_id" placeholder="Enter the Id to update" required>
+                <input type="text" name="brand_name" placeholder="Enter the brand name" >    
+                <input type="text" name="product_name" placeholder="Enter the product name" >
+                <textarea name="product_description" placeholder="Enter the product description"></textarea>
+                <input type="text" name="product_category" placeholder="Enter the product category" >
+                <input type="text" name="unit_price" placeholder="Enter the unit price(Rs)" >
+                <input type="text" name="quantity" placeholder="Enter the quantity">
+                <input type="text" name="unit" placeholder="Enter the unit" >
+                Manufacturing Date<br><input type="date" name="manufacturing_date" ><br>
+                Expiry Date<br><input type="date" name="expiry_date" >
+                <input type="submit">
+            </div>
+        </form>
+
+        <form action="inventorymgmt.jsp?action=delete" method="post">
+            <button type="button" id="DeleteButton" onclick="showDeleteStock()">Delete Stock</button>
+            <div id="DeleteStockFields" style="display: none;">
+                <input type="text" name="inventory_id" placeholder="Enter the inventory_id to update" required>
+                <input type="submit">
+            </div>
+        </form>
+    </body>
+</html>

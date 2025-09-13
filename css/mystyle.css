@@ -1,0 +1,47 @@
+body {
+  background-image: url('../img/defmg.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+h2
+{
+  color: black;
+  font-size: 45px;
+  font-family: Cooper;
+}
+.role-selection {
+  text-align: center;
+}
+
+.farmer-button button {
+  width: 500px;
+  height: 100px;
+  font-size: 25px;
+  text-align: center;
+  background-color:rgba(230, 239, 243, 0.4);
+  transition: background-color 0.7s;
+}
+
+.supplier-button button {
+  width: 500px;
+  height: 100px;
+  font-size: 25px;
+  text-align: center;
+  background-color:rgba(230, 239, 243, 0.4);
+  transition: background-color 0.7s;
+}
+
+.agronomist-button button {
+  width: 500px;
+  height: 100px;
+  font-size: 25px;
+  text-align: center;
+  background-color:rgba(230, 239, 243, 0.4);
+  transition: background-color 0.6s;
+}
+
+button:hover {
+  background-color: #4CAF50;
+}

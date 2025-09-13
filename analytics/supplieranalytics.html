@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inventory</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+        padding: 0;
+        }
+        
+        form{
+            display:inline;
+        }
+
+        input[type="date"],
+        button[type="button"],
+        button[type="submit"]
+        {
+            width: 230px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"]
+        {
+            background-color: rgba(177, 194, 248, 0.979);
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="button"]{
+            background-color: rgba(177, 194, 248, 0.979);
+            color: black;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover{
+            background-color: #4CAF50;
+        }
+        </style>
+        <script>
+            function showOSearch()
+            {
+               var oSearchField = document.getElementById("oSearchField");
+               var iSearch = document.getElementById("iSearch");
+               if(oSearchField.style.display=== "none")
+               {
+                   oSearchField.style.display = "block";
+                   iSearch.style.display="none";
+               }
+               else
+               {
+                   oSearchField.style.display = "none";
+                   iSearch.style.display="inline-block";
+               }
+            }
+            
+            function showISearch()
+            {
+               var iSearchField = document.getElementById("iSearchField");
+               var oSearch = document.getElementById("oSearch");
+               if(iSearchField.style.display=== "none")
+               {
+                   iSearchField.style.display = "block";
+                   oSearch.style.display="none";
+               }
+               else
+               {
+                   iSearchField.style.display = "none";
+                   oSearch.style.display="inline-block";
+               }
+            }
+        </script>
+    </head>
+
+    <body>
+        <form action="supplieranalytics.jsp?action=Osearch" method="post">
+            <button type="button" id="oSearch" onclick="showOSearch()">Order Analytics</button>
+            <div id="oSearchField" style="display: none;">
+                <label>From Date</label>
+                <input type="date" name="from_date">
+                <label>To Date</label>
+                <input type="date" name="to_date">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+
+        <form action="supplieranalytics.jsp?action=Isearch" method="post">
+            <button type="button" id="iSearch" onclick="showISearch()">Inventory Analytics</button>
+            <div id="iSearchField" style="display: none;">
+                <label>From Date</label>
+                <input type="date" name="from_date">
+                <label>To Date</label>
+                <input type="date" name="to_date">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+    </body>
+</html>

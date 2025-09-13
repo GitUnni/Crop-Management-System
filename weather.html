@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather App</title>
+  <style>
+    .weather-card {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: #f8f8f8;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      font-family: Arial, sans-serif;
+    }
+
+    .weather-card h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .weather-card .location {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .weather-card .temperature {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .weather-card .details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .weather-card .details div {
+      text-align: center;
+    }
+
+    .weather-card .description {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    #cityInput {
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    width: 200px;
+    margin-bottom: 10px;
+    }
+
+    #cityInput:focus {
+    border-color: #4d90fe;
+    box-shadow: 0 0 5px rgba(77, 144, 254, 0.5);
+    }
+    
+    button{
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 15px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: black;
+        background-color: #b0adf7;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+    
+    button:hover { 
+        background-color: #b194e6;
+        transition: background-color 0.4s;
+    }
+    
+    button:active{
+      background-color: red;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+        transition: background-color 0.4s;
+    }
+  </style>
+</head>
+<body>
+  <div class="weather-card">
+    <h1>Weather Data</h1>
+    <input type="text" id="cityInput" placeholder="Enter your city name">
+    <button onclick="getWeatherData()">Get Weather</button>
+    <div class="location"></div>
+    <div class="temperature"></div>
+    <div class="details">
+      <div>
+          <span><strong>Feels Like</strong></span>
+        <p class="feels-like"></p>
+      </div>
+      <div>
+          <span><strong>Humidity</strong></span>
+        <p class="humidity"></p>
+      </div>
+      <div>
+          <span><strong>Wind</strong></span>
+        <p class="wind"></p>
+      </div>
+    </div>
+    <div class="description"></div>
+  </div>
+
+  <script>
+    async function fetchData(location) {
+      const apiKey = '38296a89da3a7a22273f192db76c1fa9'; //Enter your API key, this is invalidated
+      const apiUrl = 'https://api.openweathermap.org/data/2.5/weather';
+      const url = `${apiUrl}?q=${location}&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(url);
+        const weatherData = await response.json();
+        updateWeatherCard(weatherData);
+        return weatherData;
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+        return null;
+      }
+    }
+
+    function updateWeatherCard(data) {
+      const locationElement = document.querySelector('.weather-card .location');
+      const temperatureElement = document.querySelector('.weather-card .temperature');
+      const feelsLikeElement = document.querySelector('.weather-card .feels-like');
+      const humidityElement = document.querySelector('.weather-card .humidity');
+      const windElement = document.querySelector('.weather-card .wind');
+      const descriptionElement = document.querySelector('.weather-card .description');
+
+      locationElement.textContent = `${data.name}, ${data.sys.country}`;
+      temperatureElement.textContent = `${data.main.temp}\u00B0C`;
+      feelsLikeElement.textContent = `${data.main.feels_like}\u00B0C`;
+      humidityElement.textContent = `${data.main.humidity}%`;
+      windElement.textContent = `${data.wind.speed} m/s`;
+      descriptionElement.textContent = data.weather[0].description;
+    }
+
+    function getWeatherData() {
+      const cityInput = document.getElementById('cityInput');
+      const cityName = cityInput.value.trim();
+
+      if (cityName) {
+        fetchData(cityName);
+      } else {
+        alert('Please enter a city name.');
+      }
+    }
+  </script>
+</body>
+</html>

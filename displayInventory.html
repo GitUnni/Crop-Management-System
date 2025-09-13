@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inventory</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 20px;
+        padding: 0;
+        }
+
+        input[type="text"],
+        button[type="button"],
+        button[type="submit"]
+        {
+            width: 270px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        button[type="submit"]
+        {
+            background-color: rgba(177, 194, 248, 0.979);
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button[type="button"]{
+            background-color: rgba(177, 194, 248, 0.979);
+            color: black;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover{
+            background-color: #4CAF50;
+        }
+        </style>
+        <script>
+            function showBSearch()
+            {
+               var bSearchField = document.getElementById("bSearchField");
+               var pSearch = document.getElementById("pSearch");
+               var Count = document.getElementById("Count");
+               var Display = document.getElementById("Display");
+               if(bSearchField.style.display=== "none")
+               {
+                   bSearchField.style.display = "block";
+                   pSearch.style.display="none";
+                   Count.style.display="none";
+                   Display.style.display="none";
+               }
+               else
+               {
+                   bSearchField.style.display = "none";
+                   pSearch.style.display="inline-block";
+                   Count.style.display="inline-block";
+                   Display.style.display="inline-block";
+               }
+            }
+            
+            function showPSearch()
+            {
+               var pSearchField = document.getElementById("pSearchField");
+               var bSearch = document.getElementById("bSearch");
+               var Count = document.getElementById("Count");
+               var Display = document.getElementById("Display");
+               if(pSearchField.style.display=== "none")
+               {
+                   pSearchField.style.display = "block";
+                   bSearch.style.display="none";
+                   Count.style.display="none";
+                   Display.style.display="none";
+               }
+               else
+               {
+                   pSearchField.style.display = "none";
+                   bSearch.style.display="inline-block";
+                   Count.style.display="inline-block";
+                   Display.style.display="inline-block";
+               }
+            }
+        </script>
+    </head>
+
+    <body>
+        <form action="inventorymgmt.jsp?action=Bsearch" method="post">
+            <button type="button" id="bSearch" onclick="showBSearch()">Brand Search</button>
+            <div id="bSearchField" style="display: none;">
+                <input type="text" name="brand_name" placeholder="Enter the brand name">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+
+        <form action="inventorymgmt.jsp?action=Psearch" method="post">
+            <button type="button" id="pSearch" onclick="showPSearch()">Product Search</button>
+            <div id="pSearchField" style="display: none;">
+                <input type="text" name="product_name" placeholder="Enter the product name">
+                <button type="submit">Search</button>
+            </div>
+        </form>
+
+        <form action="inventorymgmt.jsp?action=count" method="post">
+            <button type="submit" id="Count">Count</button> 
+        </form>
+        
+        <form action="inventorymgmt.jsp?action=display" method="post">
+            <button type="submit" id="Display">Display</button>
+        </form>
+    </body>
+</html>

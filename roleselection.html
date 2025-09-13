@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Role Selection</title>
+  <link rel="stylesheet" href="css/mystyle.css">
+  <style>
+              h2 {
+            position: relative;
+            font-size: 5em;
+            letter-spacing: 2px;
+            color: #0e3742;
+            text-transform: uppercase;
+            width: 100%;
+            text-align: center;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0004);
+            line-height: 0.70em;
+            outline: none;
+            animation: animate 5s linear forwards;
+        }
+        @keyframes animate {
+            0% {
+                color: #0e3742;
+                text-shadow: none;
+            }
+            10%, 20%, 30%, 40%, 50% {
+                color: #fff;
+                text-shadow: 0 0 10px #03bcf4, 0 0 20px #03bcf4, 0 0 40px #03bcf4, 0 0 80px #03bcf4, 0 0 160px #03bcf4;
+            }
+            15%, 25%, 35%, 45% {
+                color: #0e3742;
+                text-shadow: none;
+            }
+            60%, 100% {
+                color: #fff;
+                text-shadow: 0 0 10px #03bcf4, 0 0 20px #03bcf4, 0 0 40px #03bcf4, 0 0 80px #03bcf4, 0 0 160px #03bcf4;
+            }
+        }
+  </style>
+</head>
+<body>
+  <div class="role-selection">
+    <h2> Select your Role </h2>
+    <div class="farmer-button">
+        <a href="farmersignup.html"><button type="button">Farmer</button></a>
+    </div><br><br>
+    <div class="supplier-button">
+      <a href="suppliersignup.html"><button type="button">Supplier</button></a>
+    </div><br><br>
+    <div class="agronomist-button">
+        <a href="agronomistsignup.html"><button type="button">Agronomist</button></a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvest & Yield</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 20px;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select,
+    textarea,
+    button[type="button"],
+    button[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover,
+    button[type="button"]:hover {
+      background-color: #4CAF50;
+    }
+    
+
+    .star-rating {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .star-rating input[type="radio"] {
+      display: none;
+    }
+
+    .star-rating label {
+      font-size: 2em;
+      color: #ccc;
+      cursor: pointer;
+      padding: 0 5px;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .star-rating label:hover,
+    .star-rating input[type="radio"]:checked ~ label {
+      color: #ffca08;
+    }
+
+    .star-rating label::before {
+      content: attr(data-title);
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 0.75em;
+      display: none;
+      white-space: nowrap;
+    }
+
+    .star-rating label:hover::before {
+      display: block;
+    }
+
+    .star-rating label:hover ~ label::before {
+      display: none;
+    }
+  </style>
+  <script>
+    function showCropInfo() {
+      var CropInfoFields = document.getElementById("CropInfoFields");
+      var YieldButton = document.getElementById("YieldButton");
+      var DisplayButton = document.getElementById("DisplayButton");
+
+      if (CropInfoFields.style.display === "none") {
+        CropInfoFields.style.display = "block";
+        YieldButton.style.display = "none";
+        DisplayButton.style.display = "none";
+      } else {
+        CropInfoFields.style.display = "none";
+        YieldButton.style.display = "inline-block";
+        DisplayButton.style.display = "inline-block";
+      }
+    }
+
+    function showYield() {
+      var YieldFields = document.getElementById("YieldFields");
+      var CropInfoButton = document.getElementById("CropInfoButton");
+      var DisplayButton = document.getElementById("DisplayButton");
+
+      if (YieldFields.style.display === "none") {
+        YieldFields.style.display = "block";
+        CropInfoButton.style.display = "none";
+        DisplayButton.style.display = "none";
+      } else {
+        YieldFields.style.display = "none";
+        CropInfoButton.style.display = "inline-block";
+        DisplayButton.style.display = "inline-block";
+      }
+    }
+  </script>
+</head>
+<body>
+  <button type="button" id="CropInfoButton" onclick="showCropInfo()">Add Crops</button>
+  <div id="CropInfoFields" style="display: none;">
+    <form action="inventorymgmt.jsp?action=cropinfo" method="post">
+      <input type="text" name="crop_name" placeholder="Enter the crop name" required>
+      <label>Planted on</label>
+      <input type="date" name="planting_date" required>
+      <select name="soil_type" required>
+        <option value="">Select the soil type</option>
+        <option value="alluvial">alluvial</option>
+        <option value="black">black</option>
+        <option value="red">red</option>
+        <option value="laterite">laterite</option>
+        <option value="saline">saline</option>
+        <option value="arid">arid</option>
+        <option value="mountainous">mountainous</option>
+        <option value="marsh">marsh</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <button type="button" id="YieldButton" onclick="showYield()">Yield</button>
+  <div id="YieldFields" style="display: none;">
+    <form action="inventorymgmt.jsp?action=yield" method="post">  
+      <input type="text" name="crop_id" placeholder="Enter the crop_id to update" required>
+      <label>Harvested on</label>
+      <input type="date" name="harvest_date" required>
+      <input type="text" name="yield_quantity" placeholder="Enter the yield quantity" required>
+      <input type="text" name="yield_unit" placeholder="Enter the yield unit" required>
+      <label>Quality</label>
+      <div class="star-rating">
+          <input type="radio" name="quality" value="Excellent" id="star5"><label for="star5" data-title="Excellent"><i class="fas fa-star"></i></label>
+          <input type="radio" name="quality" value="Good" id="star4"><label for="star4" data-title="Good"><i class="fas fa-star"></i></label>
+          <input type="radio" name="quality" value="Average" id="star3"><label for="star3" data-title="Average"><i class="fas fa-star"></i></label>
+          <input type="radio" name="quality" value="Fair" id="star2"><label for="star2" data-title="Fair"><i class="fas fa-star"></i></label>
+          <input type="radio" name="quality" value="Poor" id="star1"><label for="star1" data-title="Poor"><i class="fas fa-star"></i></label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <form action="inventorymgmt.jsp?action=show" method="post">
+    <button type="submit" id="DisplayButton">Display</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,80 @@
+      .pushable {
+        position: relative;
+        border: none;
+        background: transparent;
+        padding: 0;
+        cursor: pointer;
+        outline-offset: 4px;
+        transition: filter 250ms;
+      }
+      .shadow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        transform: translateY(2px);
+        transition:
+          transform
+          600ms
+          cubic-bezier(.3, .7, .4, 1);
+      }
+      .edge {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        background: linear-gradient(
+          to left,
+          hsl(103, 97%, 49%) 0%,
+          hsl(123, 95%, 46%) 8%,
+          hsl(101, 93%, 48%) 92%,
+          hsl(106, 93%, 49%) 100%
+        );
+      }
+      .front {
+        display: block;
+        position: relative;
+        padding: 12px 42px;
+        border-radius: 12px;
+        font-size: 1.25rem;
+        color: rgb(0, 2, 8);
+        background: hsla(108, 98%, 48%, 0.89);
+        will-change: transform;
+        transform: translateY(-4px);
+        transition:
+          transform
+          600ms
+          cubic-bezier(.3, .7, .4, 1);
+      }
+      .pushable:hover {
+        filter: brightness(110%);
+      }
+      .pushable:hover .front {
+        transform: translateY(-6px);
+        transition:
+          transform
+          250ms
+          cubic-bezier(.3, .7, .4, 1.5);
+      }
+      .pushable:active .front {
+        transform: translateY(-2px);
+        transition: transform 34ms;
+      }
+      .pushable:hover .shadow {
+        transform: translateY(4px);
+        transition:
+          transform
+          250ms
+          cubic-bezier(.3, .7, .4, 1.5);
+      }
+      .pushable:active .shadow {
+        transform: translateY(1px);
+        transition: transform 34ms;
+      }
+      .pushable:focus:not(:focus-visible) {
+        outline: none;
+      }

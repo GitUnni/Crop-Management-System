@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1c1b29 20%, #2e2b40);
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background: linear-gradient(135deg, #2a2734 50%, #3a3946);
+            padding: 20px;
+            border-radius: 8px;
+            width: 480px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="submit"] {
+            width: 60%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #3c3953;
+            color: #e0e0e0;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50; 
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1DB954 
+        }
+
+        #usernameAvailability {
+            color: red;
+        }
+
+        h2 {
+            position: relative;
+            font-size: 3em;
+            letter-spacing: 2px;
+            color: #0e3742;
+            text-transform: uppercase;
+            width: 100%;
+            -webkit-box-reflect: below 1px linear-gradient(transparent, #0004);
+            line-height: 0.70em;
+            outline: none;
+            animation: animate 5s linear forwards;
+        }
+        @keyframes animate {
+            0% {
+                color: #0e3742;
+                text-shadow: none;
+            }
+            10%, 20%, 30%, 40%, 50% {
+                color: #fff;
+                text-shadow: 0 0 10px #03bcf4, 0 0 20px #03bcf4, 0 0 40px #03bcf4, 0 0 80px #03bcf4, 0 0 160px #03bcf4;
+            }
+            15%, 25%, 35%, 45% {
+                color: #0e3742;
+                text-shadow: none;
+            }
+            60%, 100% {
+                color: #fff;
+                text-shadow: 0 0 10px #03bcf4, 0 0 20px #03bcf4, 0 0 40px #03bcf4, 0 0 80px #03bcf4, 0 0 160px #03bcf4;
+            }
+        }
+
+        label {
+            color: #d1c4e9;
+            margin-right: 10px;
+        }
+
+        .highlight {
+            color: #4CAF50; 
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#username').on('input', function() {
+                var username = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: 'checkUsername.jsp',
+                    data: { username: username },
+                    success: function(response) {
+                        $('#usernameAvailability').text(response);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form action="query.jsp" method="post">
+        <h2>Sign Up</h2>
+        <label class="highlight">Supplier</label><input type="radio" name="user" value="s" checked required><br><br>
+        <input type="text" id="username" name="textname" placeholder="Username" required>
+        <span id="usernameAvailability"></span>
+        <input type="password" name="textpsswd" placeholder="Password" required>
+        <input type="text" name="fullname" placeholder="Enter your full name" required>
+        <input type="text" name="phone" placeholder="Enter your phone number" required>
+        <input type="text" name="email" placeholder="Enter your email" required>
+        <input type="submit" name="submit" value="Sign Up">
+    </form>
+</body>
+</html>

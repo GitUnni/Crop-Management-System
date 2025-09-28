@@ -1,0 +1,129 @@
+CREATE TABLE login(
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(25) UNIQUE NOT NULL,
+    password VARCHAR(25) NOT NULL,
+    full_name VARCHAR(25) NOT NULL,
+    phone_number VARCHAR(25) NOT NULL,
+    user_role VARCHAR(1) NOT NULL CHECK (user_role IN ('f', 's', 'a')) 
+);
+
+CREATE TABLE farmer (
+    farmer_id INT AUTO_INCREMENT PRIMARY KEY,
+    farm_location VARCHAR(25),
+    farm_size DECIMAL(10, 2),
+    user_id int references login(user_id)
+);
+
+CREATE TABLE supplier (
+    supplier_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(30),
+    user_id int references login(user_id)
+);
+
+CREATE TABLE agronomist (
+    agronomist_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(30) NOT NULL,
+    specialization VARCHAR(50) NOT NULL,
+    years_of_exp INT NOT NULL,
+    user_id int references login(user_id)
+);
+
+CREATE TABLE inventory(
+    inventory_id INT AUTO_INCREMENT PRIMARY KEY,
+    brand_name varchar(25) NOT NULL,
+    product_name varchar(25) NOT NULL,
+    product_description text,
+    product_category varchar(25) NOT NULL,
+    unit_price DECIMAL(10, 2) NOT NULL,
+    quantity int NOT NULL,
+    unit varchar(15) not null,
+    manufacturing_date DATE NOT NULL,
+    expiry_date DATE DEFAULT NULL,
+    supplier_id int references supplier(supplier_id)
+);
+
+
+CREATE TABLE AgronomistVisit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    farmer_id int references farmer(farmer_id),
+    full_name VARCHAR(25),
+    address TEXT,
+    booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    visit_date TIMESTAMP NULL
+);
+
+CREATE TABLE cropInfo (
+    crop_id INT AUTO_INCREMENT PRIMARY KEY,
+    crop_name VARCHAR(25) NOT NULL,
+    planting_date DATE NOT NULL,
+    harvest_date DATE ,
+    soil_type ENUM('alluvial', 'black', 'red', 'laterite', 'saline', 'arid', 'mountainous', 'marsh') NOT NULL ,
+    yield_quantity DECIMAL(10, 2) DEFAULT NULL ,
+    yield_unit VARCHAR(10) DEFAULT NULL ,
+    quality varchar(9) DEFAULT NULL,
+    farmer_id int references farmer(farmer_id)
+);
+
+CREATE TABLE messages(
+    message_id int primary key auto_increment,
+    sender_username varchar(25) not null,
+    receiver_username varchar(25) not null,
+    message_text text not null,
+    timestamp timestamp DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE report (
+    report_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(25) NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    file_name TEXT,
+    file_path TEXT,
+    FOREIGN KEY (username) REFERENCES login(username)
+);
+
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    total_price DECIMAL(10, 2) not null,
+    address TEXT NOT NULL,
+    supplier_id INT NOT NULL,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    farmer_id int NOT NULL,
+    status ENUM('Pending', 'Dispatched', 'In Transit', 'Delivered') DEFAULT 'Pending',
+    FOREIGN KEY (product_id) REFERENCES inventory(inventory_id),
+    FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id),
+    FOREIGN KEY (farmer_id) REFERENCES farmer(farmer_id)
+);
+
+CREATE TABLE reports (
+    report_id INT AUTO_INCREMENT PRIMARY KEY,
+    agronomist_username VARCHAR(25) NOT NULL,
+    farmer_username VARCHAR(25) NOT NULL,
+    original_filename VARCHAR(255) NOT NULL,
+    unique_filename VARCHAR(255) NOT NULL,
+    file_path TEXT NOT NULL,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (agronomist_username) REFERENCES login(username),
+    FOREIGN KEY (farmer_username) REFERENCES login(username)
+);
+
+CREATE TABLE crop_sales_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    farmer_id INT,
+    supplier_id INT DEFAULT NULL,  -- Populated when a supplier accepts the request
+    crop_name VARCHAR(50) NOT NULL,
+    negotiable_price DECIMAL(10, 2) NOT NULL,
+    status ENUM('Pending', 'Accepted') DEFAULT 'Pending',
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    time_of_pickup DATETIME DEFAULT NULL,
+    quantity DECIMAL(10, 2) NOT NULL,
+    unit VARCHAR(15) NOT NULL,
+    transaction_status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
+    transaction_notes TEXT,
+    crop_id INT,	
+    sold_price DECIMAL(10, 2) DEFAULT NULL,
+    FOREIGN KEY (crop_id) REFERENCES cropInfo(crop_id),
+    FOREIGN KEY (farmer_id) REFERENCES farmer(farmer_id),
+    FOREIGN KEY (supplier_id) REFERENCES supplier(supplier_id)
+);

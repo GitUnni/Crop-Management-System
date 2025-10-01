@@ -1,0 +1,2 @@
+*.html linguist-detectable=true linguist-documentation=true
+*.jsp linguist-detectable=true
